@@ -1,3 +1,4 @@
+import { SigninComponent } from './signin/signin.component';
 /**
  * Title: security-routing.module.ts
  * Author: Professor Krasso
@@ -13,7 +14,13 @@ const routes: Routes = [
   {
     path: '',
     component: SecurityComponent,
-    title: 'Nodebucket: Security'
+    children: [
+      {
+      path: 'signin',
+      component: SigninComponent,
+      title: 'Nodebucket: Sign In'
+    }
+  ]
   }
 ];
 
