@@ -33,7 +33,7 @@ export class NavComponent {
     console.log(this.appUser.fullName)
   }
   }
-signout(){
+signout() {
   console.log('Signing out...');
   this.cookieService.deleteAll();
   window.location.href = '/';
