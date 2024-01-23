@@ -1,8 +1,15 @@
-"use strict";
+/**
+ * Title: mongo.js
+ * Author: Laurel Condon
+ * Date: 22 Jan 2024
+ */
 
-const { MongoClient } = require("mongodb");
-const MONGO_URL = "mongodb+srv://<nodebucket_user>:<s3cret>@bellevueuniversity.ytwiz26.mongodb.net/nodebucket?retryWrites=true&w=majority";
+'use strict'
 
+const { MongoClient } = require('mongodb');
+const config = require('./config');
+
+const MONGO_URL = config.dbUrl;
 const mongo = async(operations, next) => {
     try {
         console.log("Connecting to db...");
@@ -10,8 +17,9 @@ const mongo = async(operations, next) => {
            useNewUrlParser: true,
            useUnifiedTopology: true, 
         });
-        const db = client.db("nodebuket");
-        console.log("Connected to db.");
+
+        const db = client.db(config.dbname);
+        console.log("Connected to MongoDB.");
 
         await operations(db);
         console.log("Operation was successful");
@@ -26,5 +34,7 @@ const mongo = async(operations, next) => {
         next(error);
     }
 };
+
+
 
 module.exports = { mongo };
