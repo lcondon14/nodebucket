@@ -27,7 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BaseLayoutComponent,
     NavComponent,
     FooterComponent,
-    TasksComponent
+    TasksComponent,
   ],
   imports: [
     BrowserModule,

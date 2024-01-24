@@ -1,3 +1,4 @@
+import { SigninComponent } from './security/signin/signin.component';
 /**
  * Title: app-routing.module.ts
  * Author: Professor Krasso
@@ -22,7 +23,7 @@ const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
-        title: 'Nodebucket: Home' // title for the home page
+        title: 'Nodebucket: Home'
       },
       {
         path: 'home',
@@ -31,18 +32,21 @@ const routes: Routes = [
       },
       {
          path: 'task-management',
-      component: TasksComponent,
-      canActivate: [authGuard]
+         component: TasksComponent,
+         canActivate: [authGuard]
+      },
+      {
+        path: 'signin',
+        component: SigninComponent,
+        title: 'Sign in'
       }
     ]
   },
   {
-    // path for the security module (e.g. login, register, forgot password, etc.)
     path: 'security',
     loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
   }
 ];
-
 @NgModule({
   // imports the RouterModule and defines the routes array and other options (e.g. useHash, enableTracing, scrollPositionRestoration)
   imports: [RouterModule.forRoot(routes, { useHash: true, enableTracing: false, scrollPositionRestoration: 'enabled'})],

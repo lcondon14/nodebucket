@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+/**
+* Title: styles.css
+* Author: Laurel Condon
+* Date: 23 Jan 2024
+*/
+
+/* Container Styles */
+.container-fluid {
+    padding: 20px;
+}
+
+/* Custom Gradient */
+.gradient-custom {
+    /* Old Browsers */
+   background: -webkit-linear-gradient(to right, rgba(18, 52, 87, 1), rgb(56, 65, 146));
+
+   /* Newer Browsers */
+   background: linear-gradient(to right, rgba(18, 52, 87, 1), rgb(56, 65, 146));
+}
+/* Navbar Styles */
+
+/* Footer Styles */
+footer {
+   margin-top: 20px;
+}
+.footer-para {
+    font-size: 12px;
+    line-height: 1.0; 
+}
+
+
+/* Text Colors */
+.text-cream {
+    color: #d1bd8f; 
+}
+.text-blue {
+    color: #123456;
+}  
+
+/* Header styles */
+
+h1 {
+    font-family: cursive;
+
+}

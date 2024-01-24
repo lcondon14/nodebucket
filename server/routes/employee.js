@@ -4,7 +4,7 @@
  * Date: 22 Jan 2024
  */
 
-"use strict";
+'use strict'
 
 const express = require("express");
 const router = express.Router();
@@ -30,7 +30,7 @@ router.get("/:empId", (req, res, next) => {
         }
 
         mongo(async db => {
-            const employee = await db.collection("employees").findOne({empId}); 
+            const employee = await db.collection('employees').findOne({empId}); 
 
             if (!employee) {
             const err = new Error("employee not found" + empId);
@@ -68,7 +68,7 @@ router.get("/:empId", (req, res, next) => {
                     { empId },
                     { projection: { empId: 1, todo: 1, done: 1}}
                 )
-                console.log('employee', employee);
+                console.log('employees', employee);
 
     
      if (!employee) {
@@ -95,7 +95,7 @@ router.post('/:empId/tasks', (req, res, next) => {
 
         if (isNaN(empId)) {
             const err = new Error('Input must be a number');
-            err.status - 400;
+            err.status = 400;
             console.error("err", err);
             next(err);
             return;
@@ -110,9 +110,9 @@ const taskSchema = {
     additionalProperties: false
 };
 
-const { text } = req.body
-const validator = ajv.compile(taskSchema)
-const isValid = validator({ text })
+const { text } = req.body;
+const validator = ajv.compile(taskSchema);
+const isValid = validator({ text });
 
 if (!isValid) {
     const err = new Error('Bad Request');
@@ -136,11 +136,11 @@ mongo(async db => {
     const text = {
         _id: new ObjectId(),
         text
-    }
+    };
 
     const result = await db.collection('employees').updateOne(
         { empId },
-        { $push: { todo: task }}
+        { $push: { todo: text }}
         )
 
         if (!result.modifiedCount) {
@@ -151,8 +151,8 @@ mongo(async db => {
             return;
         }
 
-        res.status(201).send({ id: task_id })
-}, next)
+        res.status(201).send({ id: text._id })
+}, next);
 
         
         res.send(tasks)
