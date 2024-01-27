@@ -9,11 +9,30 @@
 const express = require('express')
 const createServer = require('http-errors')
 const path = require('path')
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 const employeeRoute = require("./routes/employee");
 
+// Swagger title and version
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'NodebucketAPI',
+      version: '1.0.0',
+    },
+  },
+  apis: ['server/routes/*.js'], // Path to the API routes
+};
+
+const openapiSpecification = swaggerJsdoc(options);
+
 // Create the Express app
 const app = express()
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+
 
 // Configure the app
 app.use(express.json())

@@ -3,70 +3,45 @@
   Author: Laurel Condon
   Date: 23 Jan 2024
  -->
+ <nav class="navbar navbar-expand-lg navbar-dark gradient-custom text-cream">
+  <div class="container-fluid">
+    <a class="navbar-brand text-cream" RouterLink=""><img src="/assets/logo-noback.png" alt="Logo" style="height: 60px"> <span class="ms-2">Nodebucket</span>
+    </a>
 
-<nav class="navbar navbar-expand-lg bg-light gradient-custom">
-    <div class="container-fluid">
-      <ul class="navbar-nav d-flex flex-row">
-        <!-- Home -->
-        <li class="nav-item me-3 me-lg-0">
-          <a routerLink="/home" class="nav-link">
-            <i class="fas fa-home custom-icon"></i>
-            <span class="custom-text">Home</span>
-          </a>
+    <button class="navbar-toggler text-cream" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon text-cream"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link text-cream" routerLink=""><i class="bi bi-house-door text-cream"></i> Home</a>
         </li>
-        <!-- About Us -->
-        <li class="nav-item me-3 me-lg-0">
-          <a routerLink="/about" class="nav-link">
-            <i class="fas fa-info-circle custom-icon"></i> 
-            <span class="custom-text">About Us</span>
-          </a>
+        <li class="nav-item">
+          <a class="nav-link text-cream" routerLink="/about"><i class="bi bi-info-circle text-cream"></i> About</a>
         </li>
-        <!-- Contact Us -->
-        <li class="nav-item me-3 me-lg-0">
-          <a routerLink="/contact" class="nav-link">
-            <i class="fas fa-envelope custom-icon"></i>
-            <span class="custom-text">Contact Us</span> 
-          </a>
+        <li class="nav-item">
+          <a class="nav-link text-cream" routerLink="/contact"><i class="bi bi-envelope text-cream"></i> Contact</a>
         </li>
-        <!-- Sign In -->
-        <li *ngIf="!isLoggedIn" class="nav-item me-3 me-lg-0">
-          <a routerLink="/signin" class="nav-link">
-            <i class="fas fa-sign-in-alt custom-icon"></i> 
-            <span class="custom-text">Sign In</span>
-          </a>
+        <li *ngIf="!isLoggedIn">
+          <a class="nav-link text-cream" routerLink="security/signin"><i class="bi bi-person text-cream"></i> Sign In</a>
         </li>
-        <!-- User Dropdown -->
-        <li *ngIf="isLoggedIn" mdbDropdown class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            mdbDropdownToggle
-            aria-expanded="false"
-          >
-            <i class="fas fa-user custom-icon"></i>
+
+        <li *ngIf="isLoggedIn">
+          <a href="#" class="nav-link pe-3 text-cream" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person text-cream"></i> Signed In {{ appUser.fullName }}
           </a>
-          <ul
-            mdbDropdownMenu
-            class="dropdown-menu"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <li class="dropdown-item">
-              Signed in as {{ appUser.fullName }}
+
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li class="dropdown-item text-cream">
+              <a routerLink="task-management" class="dropdown-item text-blue"><i class="bi bi-list-task text-cream"></i> My Tasks</a>
             </li>
-            <li>
-              <a routerLink="/task-management" class="dropdown-item">
-                <i class="fas fa-tasks custom-icon"></i> My Tasks
-              </a>
-            </li>
-            <li>
-              <a (click)="signout()" class="dropdown-item link">
-                <i class="fas fa-sign-out-alt custom-icon"></i> Sign Out
-              </a>
+            <li class="text-cream">
+              <a (click)="signout()" class="dropdown-item link text-blue"><i class="bi bi-box-arrow-right text-cream"></i> Sign Out</a>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-  </nav>
+  </div>
+</nav>

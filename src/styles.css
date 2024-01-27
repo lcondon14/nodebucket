@@ -4,9 +4,17 @@
 * Date: 23 Jan 2024
 */
 
+/* styles.css */
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+body {
+    cursor: url('/assets/wand.png'), auto;
+}
+
+
 /* Container Styles */
 .container-fluid {
-    padding: 20px;
+    padding: 40px;
 }
 
 /* Custom Gradient */
@@ -21,17 +29,17 @@
 
 /* Footer Styles */
 footer {
-   margin-top: 20px;
+   margin-top: 35px;
 }
 .footer-para {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.0; 
 }
 
 
 /* Text Colors */
 .text-cream {
-    color: #d1bd8f; 
+    color: #d1bd8f !important; 
 }
 .text-blue {
     color: #123456;
@@ -39,7 +47,8 @@ footer {
 
 /* Header styles */
 
-h1 {
-    font-family: cursive;
-
+h1, h2, h3, h4 {
+    font-family: 'Moon Dance', cursive;
 }
+
+

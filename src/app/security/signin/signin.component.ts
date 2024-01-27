@@ -24,13 +24,7 @@ export class SigninComponent {
     empId: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$')])]
   });
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private cookieService: CookieService,
-    private securityService: SecurityService,
-    private fb: FormBuilder
-  ) {
+  constructor(private route: ActivatedRoute, private router: Router, private cookieService: CookieService, private fb: FormBuilder, private securityService: SecurityService) {
     this.sessionUser = {} as SessionUser;
     this.errorMessage = '';
   }
@@ -40,8 +34,8 @@ export class SigninComponent {
     console.log("signinForm", this.signinForm.value);
     const empId = this.signinForm.controls['empId'].value;
 
-    if (!empId || isNaN(parseInt(empId, 10))) {
-      this.errorMessage = 'The employee ID is invalid. Please enter a number.';
+    if (!empId || isNaN(parseInt (empId, 10))) {
+      this.errorMessage = 'The employee ID must be a number. Please try again.';
       this.isLoading = false;
       return;
     }
@@ -62,15 +56,15 @@ export class SigninComponent {
       },
 
       error: (err) => {
-        this.isLoading = false;
-
+        this.isLoading=false;
         if (err.error.message) {
           this.errorMessage = err.error.message;
           return;
         }
+
         this.errorMessage = err.message;
       }
     });
+
   }
 }
-

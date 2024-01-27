@@ -9,6 +9,6 @@ export class SecurityService {
   constructor(private http: HttpClient) { }
 
   findEmployeeById(empId: number) {
-    return this.http.get('/aoi/employees/' + empId);
+    return this.http.get('/api/employees/' + empId);
   }
 }
