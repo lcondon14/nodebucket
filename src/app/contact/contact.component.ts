@@ -1,3 +1,9 @@
+/**
+ * Title: contact.component.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
+
 import { Component } from '@angular/core';
 
 @Component({

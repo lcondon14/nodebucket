@@ -1,3 +1,9 @@
+/**
+ * Title: tasks.component.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
+
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { TaskService } from '../shared/task.service';

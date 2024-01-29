@@ -1,7 +1,7 @@
 /**
  * Title: home.component.ts
- * Author: Professor Krasso
- * Date: 8/5/23
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
  */
 
 // imports statements

@@ -1,3 +1,9 @@
+/**
+ * Title: signing.component.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
+
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
