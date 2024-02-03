@@ -1,3 +1,9 @@
+/**
+ * Title: auth.guard.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
+
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';

@@ -11,6 +11,8 @@ const createServer = require('http-errors')
 const path = require('path')
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+const createError = require('http-errors');
+
 
 const employeeRoute = require("./routes/employee");
 
@@ -44,8 +46,10 @@ app.use("/api/employees", employeeRoute);
 
 // error handler for 404 errors
 app.use(function(req, res, next) {
-  next(createServer(404)) // forward to error handler
+  next(new createError(404)) // forward to error handler
 })
+
+
 
 // error handler for all other errors
 app.use(function(err, req, res, next) {

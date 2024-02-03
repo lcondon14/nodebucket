@@ -1,3 +1,9 @@
+/**
+ * Title: about.component.spec.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AboutComponent } from './about.component';

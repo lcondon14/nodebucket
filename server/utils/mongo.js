@@ -4,43 +4,37 @@
  * Date: 22 Jan 2024
  */
 
+'use strict'
 
 const { MongoClient } = require('mongodb');
 const config = require('./config');
 
-// Define connection string
 const MONGO_URL = config.dbUrl;
+const mongo = async(operations, next) => {
+    try {
+        console.log("Connecting to db...");
+        const client = await MongoClient.connect(MONGO_URL, {
+           useNewUrlParser: true,
+           useUnifiedTopology: true, 
+        });
 
-// Define mongo function
-const mongo = async (operations, next) => {
+        const db = client.db(config.dbname);
+        console.log("Connected to MongoDB.");
 
-  try {
-    console.log('Connecting to database...');
+        await operations(db);
+        console.log("Operation was successful");
 
-    // Connect to database
-    const client = await MongoClient.connect(MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+        client.close();
+        console.log("Connection to db closed.")
+    } catch (err) {
+        const error = new Error("Error connecting to db: ", err);
+        error.status = 500;
 
-    // Define database
-    const db = client.db(config.dbname);
-    console.log('Connected to database');
-
-    // Call operations
-    await operations(db);
-    console.log('Operation was successful');
-
-    // Close connection
-    client.close();
-    console.log('Connection closed');
-
-    // Error handling for database connection
-  } catch (err) {
-    const error = new Error('Application Error', err);
-    error.status = 500;
-    console.log("Error connecting to the database:", err);
-  }
+        console.log("Error connecting to db: ", err);
+        next(error);
+    }
 };
+
+
 
 module.exports = { mongo };

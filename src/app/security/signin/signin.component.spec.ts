@@ -1,3 +1,9 @@
+/**
+ * Title: signin.component.spec.ts
+ * Author: Laurel Condon
+ * Date: 2 Feb 2024
+ */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SigninComponent } from './signin.component';

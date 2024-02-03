@@ -10,6 +10,7 @@ import { TaskService } from '../shared/task.service';
 import { Employee } from '../shared/employee.interface';
 import { Item } from '../shared/item.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 
 @Component({
   selector: 'app-tasks',
@@ -63,6 +64,7 @@ export class TasksComponent {
    });
   }
 
+  // Add task to todo list
   addTask() {
     const text = this.newTaskForm.controls['text']?.value;
 
@@ -89,10 +91,86 @@ export class TasksComponent {
   });
   }
 
+  //delete task
+  deleteTask(taskId: string) {
+    console.log(`Task item: ${taskId}`)
+
+  //confirm dialog
+  if (!confirm('Are you sure you want to delete this task?')){
+
+  }  
+
+  this.taskService.deleteTask(this.empId, taskId).subscribe({
+
+    next: (res: any) => {
+      console.log('Task deleted with id', taskId)
+
+      if (!this.todo) this.todo = [] // If the todo array is null set it to an empty array
+      if (!this.done) this.done = [] //if the done array is null set to an empty array
+
+      this.successMessage = 'Task deleted successfully!' // Sets the success message
+      this.hideAlert() // call the hideAlert()function
+    },
+    //if there is an error, log it to the console and set the error message
+    error: (err) => {
+      console.log('error', err)
+      this.errorMessage = err.message
+      this.hideAlert()// Call the hideAlert() functions
+    }
+  })
+  }
+
+
+  // Drop event
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      //If the item is dropped in the same container, move it to the new index
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
+
+      console.log('Moved item in array', event.container.data)
+    
+      // Call the updateTaskList() function and pass in the empID, todo and done arrays
+      this.updateTaskList(this.empId, this.todo, this.done)
+
+    } else {
+      //if the item is dropped in a different container, move it to the enw container
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      )
+      console.log('Moved item in array', event.container.data) //log the new array to the console
+
+      //call the updateTaskList()function and pass in the empId, todo and done arrays
+      this.updateTaskList(this.empId, this.todo, this.done)
+    }
+  }
+
   hideAlert() {
     setTimeout(() => {
       this.errorMessage = '';
       this.successMessage = '';
     }, 5000);
+  }
+
+  /**
+   * @param empId
+   * @param todo 
+   * @param done 
+   * @returns void
+   */
+  
+  updateTaskList(empId: number, todo: Item[], done: Item[]) {
+    this.taskService.updateTask(empId, todo, done).subscribe({
+      next: (res: any) => {
+        console.log('task updated successfully')
+      },
+      error: (err) => {
+      console.log('error', err)
+      this.errorMessage = err.message
+      this.hideAlert()
+      }
+    })
   }
 }
