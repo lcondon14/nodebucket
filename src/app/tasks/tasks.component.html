@@ -27,7 +27,7 @@
         <form [formGroup]="newTaskForm" (ngSubmit)="addTask()">
           <div class="input-group mb-3">
             <input type="text" class="form-control" formControlName="text" placeholder="Add New Task">
-            <button class="btn btn-outline-secondary" type="submit" [disabled]="!newTaskForm.valid || newTaskForm.controls['text'].hasError('maxlength')" id="btnAdd">Add</button>
+            <button class="btn btn-outline-secondary text-blue" type="submit" [disabled]="!newTaskForm.valid || newTaskForm.controls['text'].hasError('maxlength')" id="btnAdd">Add</button>
           </div>
   
           <!-- Validation required field -->
@@ -64,14 +64,14 @@
   
       <!-- Start Add Task Column -->
       <div class="col-sm-5 col-md-5 col-lg-3">
-        <h2 class="text-center">ToDo</h2>
+        <h2 class="text-center display-5 text-blue">ToDo</h2>
          <div class="p-3 border bg-secondary">
 
-          <div class="container task-column"
+          <div class="container task-column text-blue"
           cdkDropList
           #todoList="cdkDropList"
           [cdkDropListData]="todo"
-          [cdkDropListConnectedTo]="[doneList]"
+          [cdkDropListConnectedTo]="[doneList, doingList]"
           (cdkDropListDropped)="drop($event)">
 
             <div *ngIf="todo.length === 0">
@@ -106,17 +106,56 @@
         </div>
       </div>
       <!-- End todo column -->
+
+     <!-- Doing Column --> 
+<div class="col-sm-5 col-md-5 col-lg-3">
+  <h2 class="text-center display-5 text-blue">Doing</h2>
+  <div class="p-3 border bg-secondary">
+    <div class="container task-column"
+         cdkDropList
+         #doingList="cdkDropList"
+         [cdkDropListData]="doing"
+         [cdkDropListConnectedTo]="[todoList, doneList]"
+         (cdkDropListDropped)="drop($event)">
+      <div *ngIf="!doing || doing.length === 0">
+        <div class="alert alert-info">
+          No tasks in progress yet!
+        </div>
+      </div>
+      <div *ngFor="let item of doing" cdkDrag class="mt-2">
+        <div class="row border bg-white">
+          <div class="col-sm-6">
+            <div class="card-body">
+              {{ item.text }}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card-body float-end">
+              <button (click)="deleteTask(item._id)" class="btn text-cream">
+                <span class="material-icons">Delete</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none d-grip gap-2 p-2">
+            <button (click)="deleteTask(item._id)" class="btn btn-secondary">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   
       <!-- Start done column -->
       <div class="col-sm-5 col-md-5 col-lg-3">
-        <h2 class="text-center">Done</h2>
+        <h2 class="text-center display-5">Done</h2>
        <div class="p-3 border bg-secondary">
 
         <div class="container task-column"
         cdkDropList
         #doneList="cdkDropList"
         [cdkDropListData]="done"
-        [cdkDropListConnectedTo]="[todoList]"
+        [cdkDropListConnectedTo]="[todoList, doingList]"
         (cdkDropListDropped)="drop($event)">
   
             <div *ngIf="!done || done.length === 0">

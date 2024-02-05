@@ -41,12 +41,14 @@ deleteTask(empId: number, taskId: string) {
  * @param empId 
  * @param todo list of todo tasks
  * @param done list of tasks done
+ * @param doing list of doing task
  * @returns status code 204 (no content)
  */
-updateTask(empId: number, todo: Item[], done: Item[]) {
+updateTask(empId: number, todo: Item[], done: Item[], doing: Item[]) {
   return this.http.put('/api/employees/' + empId + '/tasks', {
-    todo,
-    done
-  })
+     todo,
+     done,
+     doing
+  });
 }
 }

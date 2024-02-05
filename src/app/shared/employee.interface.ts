@@ -10,4 +10,5 @@ export interface Employee {
     empId: number;
     todo: Item[];
     done: Item[];
+    doing: Item[];
 }

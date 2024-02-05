@@ -22,6 +22,7 @@ export class TasksComponent {
   empId: number;
   todo: Item[];
   done: Item[];
+  doing: Item[];
   errorMessage: string;
   successMessage: string;
 
@@ -33,6 +34,7 @@ export class TasksComponent {
     this.employee = {} as Employee;
     this.todo = [];
     this.done = [];
+    this.doing =[];
     this.errorMessage = '';
     this.successMessage = '';
 
@@ -58,6 +60,11 @@ export class TasksComponent {
           this.done = this.employee.done;
         } else {
           this.done = [];
+        }
+        if (this.employee.doing){
+          this.doing = this.employee.doing;
+        } else {
+          this.doing = [];
         }
 
       }
@@ -107,7 +114,7 @@ export class TasksComponent {
 
       if (!this.todo) this.todo = [] // If the todo array is null set it to an empty array
       if (!this.done) this.done = [] //if the done array is null set to an empty array
-
+      if (!this.doing) this.doing = [] // if the doing array is null set to an empty array
       this.successMessage = 'Task deleted successfully!' // Sets the success message
       this.hideAlert() // call the hideAlert()function
     },
@@ -120,32 +127,32 @@ export class TasksComponent {
   })
   }
 
+ // Drop event
+ drop(event: CdkDragDrop<any[]>) {
+  if (event.previousContainer === event.container) {
+    //If the item is dropped in the same container, move it to the new index
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
 
-  // Drop event
-  drop(event: CdkDragDrop<any[]>) {
-    if (event.previousContainer === event.container) {
-      //If the item is dropped in the same container, move it to the new index
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
+    console.log('Moved item in array', event.container.data)
+  
+    // Call the updateTaskList() function and pass in the empID, todo and done arrays
+    this.updateTaskList(this.empId, this.todo, this.done, this.doing)
 
-      console.log('Moved item in array', event.container.data)
-    
-      // Call the updateTaskList() function and pass in the empID, todo and done arrays
-      this.updateTaskList(this.empId, this.todo, this.done)
+  } else {
+    //if the item is dropped in a different container, move it to the enw container
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex,
+    )
+    console.log('Moved item in array', event.container.data) //log the new array to the console
 
-    } else {
-      //if the item is dropped in a different container, move it to the enw container
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      )
-      console.log('Moved item in array', event.container.data) //log the new array to the console
-
-      //call the updateTaskList()function and pass in the empId, todo and done arrays
-      this.updateTaskList(this.empId, this.todo, this.done)
-    }
+    //call the updateTaskList()function and pass in the empId, todo and done arrays
+    this.updateTaskList(this.empId, this.todo, this.done, this.doing)
   }
+}
+
 
   hideAlert() {
     setTimeout(() => {
@@ -158,11 +165,12 @@ export class TasksComponent {
    * @param empId
    * @param todo 
    * @param done 
+   * @param doing
    * @returns void
    */
   
-  updateTaskList(empId: number, todo: Item[], done: Item[]) {
-    this.taskService.updateTask(empId, todo, done).subscribe({
+  updateTaskList(empId: number, todo: Item[], done: Item[], doing: Item[]) {
+    this.taskService.updateTask(empId, todo, done, doing).subscribe({
       next: (res: any) => {
         console.log('task updated successfully')
       },

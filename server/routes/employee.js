@@ -231,8 +231,19 @@ const tasksSchema = {
     },
     required: ['_id', 'text'],
     additionalProperties: false
+  },
+},
+  doing: {
+    type: 'array',
+    items: {
+      properties: {
+        _id: { type: 'string' },
+        text: { type: 'string' },
+      },
+      required: ['_id', 'text' ],
+      additionalProperties: false,
+    }
   }
-}
 }
 }
 // Create tasks API
@@ -401,7 +412,7 @@ router.put('/:empId/tasks', async (req, res, next) => {
 
       const result = await db.collection('employees').updateOne(
         { empId },
-        { $set: { todo: req.body.todo, done: req.body.done } }
+        { $set: { todo: req.body.todo, done: req.body.done, doing: req.body.doing} }
       );
 
       if (!result.modifiedCount) {
