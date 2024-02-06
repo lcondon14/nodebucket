@@ -1,1 +1,195 @@
-<p>tasks works!</p>
+<!-- 
+  Title: tasks.component.html
+  Author: Laurel Condon
+  Date: 25 Jan 2024
+ -->
+
+<div class="container-fluid pt-2" style="min-height: 600px">
+    <h1 class="text-center display-2 text-blue">My Tasks</h1>
+    <div class="row justify-content-center pt-4">
+      <div class="col-sm-10 col-md-8 col-lg-6">
+        <div *ngIf="errorMessage">
+        <div class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div></div>
+  
+        <div *ngIf="successMessage">
+          <div class="alert alert-success" role="alert">
+            {{successMessage}}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Add new task form -->
+    <div class="row justify-content-center pt-4">
+      <div class="col-sm-10 col-md-8 col-lg-6">
+        <form [formGroup]="newTaskForm" (ngSubmit)="addTask()">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" formControlName="text" placeholder="Add New Task">
+            <button class="btn btn-outline-secondary text-blue" type="submit" [disabled]="!newTaskForm.valid || newTaskForm.controls['text'].hasError('maxlength')" id="btnAdd">Add</button>
+          </div>
+  
+          <!-- Validation required field -->
+          <div *ngIf="newTaskForm.controls['text'].touched && newTaskForm.controls['text'].hasError('required')">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Please enter task</strong>
+              <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+          </div>
+  
+            <!-- min length validation -->
+          <div *ngIf="newTaskForm.controls['text'].touched && newTaskForm.controls['text'].hasError('minlength')">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Task must be at least 3 characters long</strong>
+              <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+          </div>
+  
+          <!-- Max length validation -->
+          <div *ngIf="newTaskForm.controls['text'].touched && newTaskForm.controls['text'].hasError('maxlength')">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Task cannot be more than 50 characters</strong>
+              <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+    <!-- End new task form -->
+  
+    <!-- Todo and done container -->
+    <div class="row gy-2 justify-content-center">
+  
+      <!-- Start Add Task Column -->
+      <div class="col-sm-5 col-md-5 col-lg-3">
+        <h2 class="text-center display-5 text-blue">ToDo</h2>
+         <div class="p-3 border bg-secondary">
+
+          <div class="container task-column text-blue"
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[doneList, doingList]"
+          (cdkDropListDropped)="drop($event)">
+
+            <div *ngIf="todo.length === 0">
+              <div class="alert alert-info">
+                No tasks to do yet!
+              </div>
+            </div>
+
+            <div *ngFor="let item of todo" cdkDrag class="mt-2">
+              <div class="row border bg-white">
+                <div class="col-sm-6">
+                  <div class="card-body">
+                    {{ item.text }}
+                  </div>
+                </div>
+  
+                <div class="col-sm-6">
+                  <div class="card-body float-end">
+                    <button (click)="deleteTask(item._id)" class="btn text-cream">
+                      <span class="material-icons">Delete</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none d-grid gap-2 p-2">
+                  <button (click)="deleteTask(item._id)" class="btn btn-secondary">Delete</button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <!-- End todo column -->
+
+     <!-- Doing Column --> 
+<div class="col-sm-5 col-md-5 col-lg-3">
+  <h2 class="text-center display-5 text-blue">Doing</h2>
+  <div class="p-3 border bg-secondary">
+    <div class="container task-column"
+         cdkDropList
+         #doingList="cdkDropList"
+         [cdkDropListData]="doing"
+         [cdkDropListConnectedTo]="[todoList, doneList]"
+         (cdkDropListDropped)="drop($event)">
+      <div *ngIf="!doing || doing.length === 0">
+        <div class="alert alert-info">
+          No tasks in progress yet!
+        </div>
+      </div>
+      <div *ngFor="let item of doing" cdkDrag class="mt-2">
+        <div class="row border bg-white">
+          <div class="col-sm-6">
+            <div class="card-body">
+              {{ item.text }}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card-body float-end">
+              <button (click)="deleteTask(item._id)" class="btn text-cream">
+                <span class="material-icons">Delete</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none d-grip gap-2 p-2">
+            <button (click)="deleteTask(item._id)" class="btn btn-secondary">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+      <!-- Start done column -->
+      <div class="col-sm-5 col-md-5 col-lg-3">
+        <h2 class="text-center display-5">Done</h2>
+       <div class="p-3 border bg-secondary">
+
+        <div class="container task-column"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList, doingList]"
+        (cdkDropListDropped)="drop($event)">
+  
+            <div *ngIf="!done || done.length === 0">
+              <div class="alert alert-info">
+                No tasks done  yet!
+              </div>
+            </div>
+            <div *ngFor="let item of done" cdkDrag class="mt-2">
+              <div class="row border bg-white">
+                <div class="col-sm-6">
+                  <div class="card-body">
+                    {{ item.text }}
+                  </div>
+                </div>
+  
+                <div class="col-sm-6">
+                  <div class="card-body float-end">
+                    <button (click)="deleteTask(item._id)" class="btn text-cream">
+                      <span class="material-icons">Delete</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none d-grip gap-2 p-2">
+                  <button (click)="deleteTask(item._id)" class="btn btn-secondary">Delete</button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <!-- End Done Column -->
+  
+  
+    </div>
+  </div>

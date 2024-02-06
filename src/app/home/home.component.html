@@ -1,11 +1,25 @@
+<!-- 
+  Title: home.component.html
+  Author: Laurel Condon
+  Date: 23 Jan 2024
+ -->
+
+
+<!-- Container -->
 <div class="container-fluid">
   <div class="row">
-    <div class="col">
-      <h1>Home Component Works! <span class="material-icons">thumb_up</span></h1>
-    </div>
-  </div>
 
-  <a routerLink="/security">Test Security Module</a>
+ <!-- First Column: Text -->
+ <div class="col-lg-6 d-flex align-items-center justify-content-center">
+  <div class="text-blue text-center">
+    <h1 class="display-1">Magical Productivity Awaits!</h1>
+    <h2 class="display-6">Spellbinding Efficiency at Your Fingertips."</h2>
+  </div>
 </div>
 
+<!-- Second Column: Image with Button -->
+<div class="col-lg-6 position-relative">
+  <img src="/assets/map.jpg" class="img-fluid" alt="Wizardly Map">
 
+   <!-- Large Button with Router Link -->
+ <a routerLink="/about" class="btn custom-button-style position-absolute top-50 start-50 translate-middle">About Us</a>

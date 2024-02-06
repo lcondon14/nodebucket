@@ -1,3 +1,9 @@
+/**
+ * Title: security.service.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,6 +15,6 @@ export class SecurityService {
   constructor(private http: HttpClient) { }
 
   findEmployeeById(empId: number) {
-    return this.http.get('/aoi/employees/' + empId);
+    return this.http.get('/api/employees/' + empId);
   }
 }

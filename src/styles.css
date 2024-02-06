@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+/**
+* Title: styles.css
+* Author: Laurel Condon
+* Date: 23 Jan 2024
+*/
+
+/* styles.css */
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+body {
+    cursor: url('/assets/wand.png'), auto;
+}
+
+
+/* Container Styles */
+.container-fluid {
+    padding: 40px;
+}
+
+/* Custom Gradient */
+.gradient-custom {
+    /* Old Browsers */
+   background: -webkit-linear-gradient(to right, rgba(18, 52, 87, 1), rgb(56, 65, 146));
+
+   /* Newer Browsers */
+   background: linear-gradient(to right, rgba(18, 52, 87, 1), rgb(56, 65, 146));
+}
+/* Navbar Styles */
+
+/* Footer Styles */
+footer {
+   margin-top: 35px;
+}
+.footer-para {
+    font-size: 14px;
+    line-height: 1.0; 
+}
+
+
+/* Text Colors */
+.text-cream {
+    color: #d1bd8f !important; 
+}
+.text-blue {
+    color: #123456;
+}  
+
+/* Header styles */
+
+h1, h2, h3, h4 {
+    font-family: 'Moon Dance', cursive;
+}
+
+.glow-img {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+    max-width: 100%; 
+    border-radius: 10px; 
+  }
+

@@ -1,3 +1,8 @@
+/**
+ * Title: auth.guard.spec.ts
+ * Author: Laurel Condon
+ * Date: 28 Jan 2024
+ */
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 

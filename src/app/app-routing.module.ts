@@ -1,3 +1,4 @@
+
 /**
  * Title: app-routing.module.ts
  * Author: Professor Krasso
@@ -11,7 +12,9 @@ import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component
 import { HomeComponent } from './home/home.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { authGuard } from './shared/auth.guard';
-
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 // routes array with a path, component, and title for each route in the application (e.g. home, about, contact, etc.)
 const routes: Routes = [
@@ -30,9 +33,19 @@ const routes: Routes = [
         title: 'Nodebucket: Home'
       },
       {
-         path: 'task-management',
-      component: TasksComponent,
-      canActivate: [authGuard]
+        path: 'contact',
+        component: ContactComponent,
+        title: 'Nodebucket: Contact'
+      },
+      {
+        path: 'task-management',
+        component: TasksComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'about',
+        component: AboutComponent,
+        title: 'Nodebucket: About'
       }
     ]
   },
@@ -40,6 +53,11 @@ const routes: Routes = [
     // path for the security module (e.g. login, register, forgot password, etc.)
     path: 'security',
     loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
+  },
+  // path to  404 page
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 

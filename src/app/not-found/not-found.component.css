@@ -1,0 +1,25 @@
+/**
+* Title: not-found.component.css
+* Author: Laurel Condon
+* Date: 23 Jan 2024
+*/
+
+
+/* 404 Page Styles */
+.not-found-container {
+    text-align: center;
+    padding: 50px;
+  }
+
+a {
+    display: block;
+    margin-top: 20px;
+    color: #123456;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+a:hover {
+        color: #d1bd8f;
+      }    

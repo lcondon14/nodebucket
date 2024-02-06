@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'
 
 import { SecurityRoutingModule } from './security-routing.module';
 import { SecurityComponent } from './security.component';
@@ -26,8 +26,8 @@ import { SigninComponent } from './signin/signin.component';
     SecurityRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ]
 })
 export class SecurityModule { }
