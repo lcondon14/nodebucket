@@ -104,7 +104,7 @@ export class TasksComponent {
 
   //confirm dialog
   if (!confirm('Are you sure you want to delete this task?')){
-
+    return; // Do nothing if the user cancels
   }  
 
   this.taskService.deleteTask(this.empId, taskId).subscribe({
