@@ -214,6 +214,7 @@ const tasksSchema = {
     todo: {
       type: 'array',
       items: {
+        type: 'object',
         properties: {
         _id: { type: 'string' },
         text: { type: 'string' }
@@ -225,6 +226,7 @@ const tasksSchema = {
   done: {
     type: 'array',
     items: {
+      type: 'object',
       properties: {
       _id: { type: 'string' },
       text: { type: 'string' }
@@ -236,6 +238,7 @@ const tasksSchema = {
   doing: {
     type: 'array',
     items: {
+      type:'object',
       properties: {
         _id: { type: 'string' },
         text: { type: 'string' },
